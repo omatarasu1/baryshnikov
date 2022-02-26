@@ -194,6 +194,8 @@
       apt:
         name: rsyslog
         state: latest
+    - name: Restart
+      reboot:
   handlers:
     - name: disable zabbix
       service:
