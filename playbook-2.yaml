@@ -144,14 +144,14 @@
 
           COPY nginx.conf /etc/nginx/nginx.conf
         dest: /skillcloud-nginx/Dockerfile-balance
-    - name: touch files 3
+    - name: touch files 4
       copy:
         content: |
           FROM nginx
           
           COPY index.html /usr/share/nginx/html
         dest: /skillcloud-nginx/Dockerfile-site
-    - name: touch files 4
+    - name: touch files 5
       copy: 
         content: |
           version: "3.6"
@@ -194,6 +194,11 @@
       apt:
         name: rsyslog
         state: latest
+    - name: cron
+      cron:
+        name: hello
+        job: /usr/bin/journalctl --vacuum-time=1month
+        special_time: weekly
     - name: Restart
       reboot:
   handlers:
