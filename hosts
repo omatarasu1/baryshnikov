@@ -1,0 +1,6 @@
+[hosts]
+192.168.100.20 rsyslog=server
+192.168.100.30 rsyslog=client
+192.168.100.40 rsyslog=client
+[hosts:vars]
+ansible_ssh_pass=toortoor

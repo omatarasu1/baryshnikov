@@ -1,0 +1,13 @@
+- hosts: all
+  tasks:
+    - name: Switch ssh port
+      lineinfile:
+        path: '/etc/ssh/sshd_config'
+        regexp: '#Port 22'
+        line: 'Port 1467'
+      notify: Restart sshd
+  handlers: 
+    - name: Restart sshd
+      service:
+        name: ssh
+        state: restarted  
