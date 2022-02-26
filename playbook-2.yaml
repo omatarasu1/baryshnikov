@@ -10,6 +10,25 @@
       - $1$suck$FJuJ/UjRxp5RjimYA8N8i.
       - $1$suck$cM6P0VAecaqBdrhkLk1bJ0
   tasks:
+    - name: copy      
+      copy:
+        content: |  
+          module(load="imtcp")
+          input(type="imtcp" port="514")
+          if ($hostname == "Project2")
+            then /var/log/project2.log
+          if ($hostname == "Project3")
+            then /var/log/project3.log
+        dest: /etc/rsyslog.d/my.conf
+      when: rsyslog == 'server'
+    - copy: 
+        content: |
+          *.* @@192.168.100.20
+        dest: /etc/rsyslog.d/my.conf
+      when: rsyslog == 'client'
+    - service:
+        name: rsyslog
+        state: restarted
     - name: Install curl
       apt:
         name: curl
